@@ -53,3 +53,11 @@ ostream& Term_list::operator <<(ostream& OUTpolyStream, const Term_list& polynom
 	}
 	return OUTpolyStream;
 }
+
+Term_list& operator +(const Term_list& other_polynomial) const{
+	list<Term>::const_iterator itr, other_itr;
+
+	itr = list_of_terms.begin();
+	other_itr = other_polynomial.list_of_terms.begin();
+
+	
