@@ -29,7 +29,10 @@ bool Term::operator ==(Term& other_Term){
 istream& operator >>(istream& INtermStream, Term& a_Term){
 
     char char1, varLetter, carrot;
-    if (isdigit(char1))
+    INtermStream.get(char1);
+        if (isdigit(char1)){
+            INtermStream.putback(char1);
+    }
     INtermStream >> a_Term.coefficient;
     INtermStream >> varLetter;
     INtermStream >> a_Term.exponent;
