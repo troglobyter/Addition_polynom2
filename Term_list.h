@@ -9,6 +9,7 @@ using namespace std;
 class Term_list{
 	public:
 	Term_list();
+	Term_list(const Term_list& other_polynomial);
 
 	friend istream& operator >>(istream&& INpolyStream, Term_list& polynomial);
 	friend ostream& operator <<(ostream& OUTpolyStream, const Term_list& polynomial);

@@ -1,7 +1,14 @@
 #include "Term_list.h"
 
-Term_list::Term_list{
+Term_list::Term_list(){
 
+}
+
+Term_list::Term_list(const Term_list& other_polynomial){
+	list<Term>::const_iterator c_itr;
+	for(c_itr = other_polynomial.list_of_terms.begin(); c_itr != other_polynomial.list_of_terms.end(); ++c_itr){
+		list_of_terms.push_back(*c_itr);
+	}
 }
 
 void Term_list::selection_sort(list<Term>::iterator itr1){
@@ -47,17 +54,24 @@ ostream& Term_list::operator <<(ostream& OUTpolyStream, const Term_list& polynom
 	if(list_of_terms.empty())
 		throw std::invalid_argument("There is no polynomial.");
 
-	list<Term>::const_iterator itr;
-	for(itr = polynomial.list_of_terms.begin(); itr != polynomial.list_of_terms.end(); ++itr){
+	list<Term>::const_iterator c_itr;
+	for(c_itr = polynomial.list_of_terms.begin(); c_itr != polynomial.list_of_terms.end(); ++c_itr){
 		OUTpolyStream << *itr;
 	}
 	return OUTpolyStream;
 }
 
 Term_list& operator +(const Term_list& other_polynomial) const{
-	list<Term>::const_iterator itr, other_itr;
+	Term_list result_polynomial(this);
+	list<Term>::const_iterator c_itr;
+	for(c_itr = other_polynomial.list_of_terms.begin(); c_itr != other_polynomial.list_of_terms.end(); ++c_itr)
+		result_polynomial.list_of_terms.push_back(*c_itr);
 
-	itr = list_of_terms.begin();
-	other_itr = other_polynomial.list_of_terms.begin();
+	list<Term>::iterator itr;
+	itr = result_polynomial.list_of_terms.begin();
+	result_polynomial.selection_sort(itr);
+	itr = result_polynomial.list_of_terms.begin();
+	result_polynomial.collect_like_terms(itr);
 
-	
+	return result_polynomial;
+}
