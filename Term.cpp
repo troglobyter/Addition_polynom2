@@ -44,7 +44,7 @@ ostream& operator <<(ostream& OUTtermStream, const Term& a_Term){
 
     OUTtermStream << a_Term.coefficient;
     OUTtermStream << "X";
-    OUTtermStream << a_Term.exponent;
     OUTtermStream << "^";
+    OUTtermStream << a_Term.exponent;
     return OUTtermStream;
 }
