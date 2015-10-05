@@ -5,7 +5,7 @@ using namespace std;
 
 Term::Term(){
 
-    coefficient = 0; // not sure if default constructor is an empty constructor or if we setting them to 0
+    coefficient = 0; 
     exponent = 0;
 }
 Term::Term(int t_coeff, int t_exp){
@@ -35,8 +35,8 @@ istream& operator >>(istream& INtermStream, Term& a_Term){
     }
     INtermStream >> a_Term.coefficient;
     INtermStream >> varLetter;
-    INtermStream >> a_Term.exponent;
     INtermStream >> carrot;
+    INtermStream >> a_Term.exponent;
     return INtermStream;        
 }
 
