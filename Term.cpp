@@ -20,7 +20,7 @@ Term::Term(Term& a_Term){
 }
 bool Term::operator > (Term& other_Term)
 {
-    return exponent < other_Term.exponent;
+    return exponent > other_Term.exponent;
 }
 bool Term::operator ==(Term& other_Term){
 
@@ -28,11 +28,6 @@ bool Term::operator ==(Term& other_Term){
 }
 istream& operator >>(istream& INtermStream, Term& a_Term){
 
-    char char1, varLetter, carrot;
-    INtermStream.get(char1);
-        if (isdigit(char1)){
-            INtermStream.putback(char1);
-    }
     INtermStream >> a_Term.coefficient;
     INtermStream >> varLetter;
     INtermStream >> carrot;
@@ -40,11 +35,16 @@ istream& operator >>(istream& INtermStream, Term& a_Term){
     return INtermStream;        
 }
 
-ostream& operator <<(ostream& OUTtermStream, const Term& a_Term){   
+ostream& operator <<(ostream& OUTtermStream, const Term& a_Term){  
+    
 
     OUTtermStream << a_Term.coefficient;
-    OUTtermStream << "X";
-    OUTtermStream << "^";
-    OUTtermStream << a_Term.exponent;
+    if(a_Term.exponent != 0){
+        OUTtermStream << "X";
+        if(a_Term.exponent != 1){
+            OUTtermStream << "^";
+            OUTtermStream << a_Term.exponent;
+        }
+    }
     return OUTtermStream;
 }
