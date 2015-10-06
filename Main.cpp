@@ -2,6 +2,7 @@
 #include <string> 
 #include <cctype>
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 
@@ -40,25 +41,42 @@ int main()
 	return(0);
 }
 
-string& polystring_format(istringstream& INstream){
+string polystring_format(istringstream& INstream){
 
 	char next_char;
 	bool negative_term = false;
-	string poly_formatted;
+	bool last_was_carrot = false;
+	string poly_formatted = "";
+
 	while(INstream >> next_char){
-		if(negative_term && next_char == '-'){
+		if(negative_term){
+			if(next_char == '-')
+				poly_formatted += ' ';
+		}
+		else{
 			poly_formatted += ' ';
+			poly_formatted += '-';
 			negative_term = false;
 		}
-		if(isalnum(next_char) || next_char == '^')
+		if(isalnum(next_char) || next_char == '^'){
+			if(next_char == '^')
+				last_was_carrot = true;
+			else
+				last_was_carrot = false;
 			poly_formatted += next_char;
+		}
 		else if(next_char == '-'){
-			if(poly_formatted.empty() || poly_formatted.back() == '^')
+			if(poly_formatted.empty() || last_was_carrot){
+				if(last_was_carrot)
+					last_was_carrot = false;
 				poly_formatted += next_char;
-			else{
-				poly_formatted += ' ';
+			}
+			else if(!negative_term){
 				negative_term = true;
 			}
+			else
+				negative_term = false;
+		}
 		else if(next_char == '+')
 			poly_formatted += ' ';
 	}
@@ -83,23 +101,22 @@ void AddPolys()
 	string Poly1, formatted_Poly1;
 	string Poly2, formatted_Poly2;
 	Term_list firstPoly, secondPoly;
-	istringstream polyINstream;
 
 	// Read in Term_list firstPoly 
 	cout << endl << "Input polynomials in this format" << endl
 	<< "3x^3+4x^2-2x+7"<< endl << endl <<"Enter the first polynomial: "<< endl;
 	getline(cin, Poly1);
-	polyINstream(Poly1);
-	formatted_Poly1 = polystring_format(polyINstream);
-	polyINstream(formatted_Poly1);
+	istringstream poly1INstream(Poly1);
+	formatted_Poly1 = polystring_format(poly1INstream);
+	istringstream poly1fINstream(formatted_Poly1);
 	polyINstream >> firstPoly; 
 
 	// Read in Term_list secondPoly 
 	cout << "Enter the second polynomial: " << endl;
 	getline(cin, Poly2);
-	polyINstream(Poly2);
+	istringstream poly2INstream(Poly2);
 	formatted_Poly2 = polystring_format(polyINstream);
-	polyINstream(formatted_Poly2);
+	istringstream poly2fINstream(formatted_Poly2);
 	polyINstream >> secondPoly;
 
 	// Adds the polynomials and prints out the result
