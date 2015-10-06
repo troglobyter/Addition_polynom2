@@ -14,6 +14,7 @@ public:
   Term();
   Term(int t_coeff, int t_exp);
   Term(Term& a_Term);
+  bool negative_term() const; 
   bool operator >(Term& other_Term);
   bool operator ==(Term& other_Term);
   friend istream& operator >>(istream& INtermStream, Term& a_Term);

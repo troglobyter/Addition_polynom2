@@ -53,9 +53,16 @@ ostream& Term_list::operator <<(ostream& OUTpolyStream, Term_list& polynomial){
 	if(polynomial.empty())
 		throw std::invalid_argument("The Term_list object is empty.");
 
-	list<Term>::const_iterator c_itr;
+	list<Term>::const_iterator c_itr=polynomial.begin();
+	if(c_itr->negative_term())
+		OUTpolyStream << '-';
 	for(c_itr = polynomial.begin(); c_itr != polynomial.end(); ++c_itr){
 		OUTpolyStream << *c_itr;
+		if((c_itr +1) != polynomial.end()){
+			if(c_itr->negative_term())
+				OUTpolyStream << " - ";
+			else
+				OUTpolyStream << " + "; 
 	}
 	return OUTpolyStream;
 }
