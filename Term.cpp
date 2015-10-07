@@ -36,19 +36,35 @@ bool Term::operator ==(Term& other_Term){
     return exponent == other_Term.exponent;
 }
 
+Term Term::operator =(const Term& other_Term){
+	
+	return Term(other_Term);
+}
+
 istream& operator >>(istream& INtermStream, Term& a_Term){
-	char varLetter = 'x';
-	char carrot = '^';
+	char varLetter = ' ';
+	char carrot = ' ';
+	a_Term.exponent = 0;
 
     INtermStream >> a_Term.coefficient;
-	INtermStream >> varLetter;
-	if (isspace(varLetter)){
+
+	varLetter = INtermStream.get();
+	if (varLetter == EOF){
+		a_Term.exponent = 0;
+		return INtermStream;
+	}
+	else if (isspace(varLetter)){
 		INtermStream.putback(varLetter);
 		a_Term.exponent = 0;
 		return INtermStream;
 	}
-	INtermStream >> carrot;
-	if (isspace(carrot)){
+
+	carrot = INtermStream.get();
+	if (carrot == EOF){
+		a_Term.exponent = 1;
+		return INtermStream;
+	}
+	else if (isspace(carrot)){
 		INtermStream.putback(carrot);
 		a_Term.exponent = 1;
 		return INtermStream;
@@ -59,8 +75,8 @@ istream& operator >>(istream& INtermStream, Term& a_Term){
 
 ostream& operator <<(ostream& OUTtermStream, const Term& a_Term){  
     
-
-    OUTtermStream << abs(a_Term.coefficient);
+	if (abs(a_Term.coefficient) != 1)
+		OUTtermStream << abs(a_Term.coefficient);
     if(a_Term.exponent != 0){
         OUTtermStream << "x";
         if(a_Term.exponent != 1){

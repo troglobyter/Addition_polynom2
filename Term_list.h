@@ -19,7 +19,7 @@ class Term_list: public list<Term>{
 		Term_list& operator +(const Term_list& other_polynomial) const;
 
 	private:
-		list<Term>::iterator the_itr = this->begin();
+		list<Term>::iterator the_itr;
 		void selection_sort();
 		void collect_like_terms();
 };

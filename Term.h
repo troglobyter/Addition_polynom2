@@ -18,6 +18,7 @@ public:
 	bool negative_term() const; 
 	bool operator >(Term& other_Term);
 	bool operator ==(Term& other_Term);
+	Term operator =(const Term& other_Term);
 	friend istream& operator >>(istream& INtermStream, Term& a_Term);
 	friend ostream& operator <<(ostream& OUTtermStream, const Term& a_Term);
 };
