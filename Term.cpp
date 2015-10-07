@@ -15,7 +15,7 @@ Term::Term(int t_coeff, int t_exp){
     exponent = t_exp;
 }
 
-Term::Term(Term& a_Term){
+Term::Term(const Term& a_Term){
 
     coefficient = a_Term.coefficient;
     exponent = a_Term.exponent;
@@ -40,10 +40,16 @@ istream& operator >>(istream& INtermStream, Term& a_Term){
     char varLetter, carrot;
 
     INtermStream >> a_Term.coefficient;
-    if(isspace(INtermStream >> varLetter))
-        return INtermStream;
-    if(isspace(INtermStream >> carrot))
-	return INtermStream;
+	INtermStream.get(varLetter);
+	if (isspace(varLetter)){
+		INtermStream.putback(varLetter);
+		return INtermStream;
+	}
+	INtermStream.get(carrot);
+	if (isspace(carrot)){
+		INtermStream.putback(carrot);
+		return INtermStream;
+	}
     INtermStream >> a_Term.exponent;
     return INtermStream;        
 }
