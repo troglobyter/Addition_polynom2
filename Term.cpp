@@ -37,17 +37,20 @@ bool Term::operator ==(Term& other_Term){
 }
 
 istream& operator >>(istream& INtermStream, Term& a_Term){
-    char varLetter, carrot;
+	char varLetter = 'x';
+	char carrot = '^';
 
     INtermStream >> a_Term.coefficient;
-	INtermStream.get(varLetter);
+	INtermStream >> varLetter;
 	if (isspace(varLetter)){
 		INtermStream.putback(varLetter);
+		a_Term.exponent = 0;
 		return INtermStream;
 	}
-	INtermStream.get(carrot);
+	INtermStream >> carrot;
 	if (isspace(carrot)){
 		INtermStream.putback(carrot);
+		a_Term.exponent = 1;
 		return INtermStream;
 	}
     INtermStream >> a_Term.exponent;
