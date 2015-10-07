@@ -6,7 +6,7 @@
 
 using namespace std;
 
-string& polystring_format(istringstream& INstream); 
+string polystring_format(istringstream& INstream); 
 
 void AddPolys();
 
@@ -49,14 +49,14 @@ string polystring_format(istringstream& INstream){
 	string poly_formatted = "";
 
 	while(INstream >> next_char){
-		if(negative_term){
-			if(next_char == '-')
+		if (negative_term){
+			if (next_char == '-')
 				poly_formatted += ' ';
-		}
-		else{
-			poly_formatted += ' ';
-			poly_formatted += '-';
-			negative_term = false;
+			else{
+				poly_formatted += ' ';
+				poly_formatted += '-';
+				negative_term = false;
+			}
 		}
 		if(isalnum(next_char) || next_char == '^'){
 			if(next_char == '^')
@@ -109,15 +109,17 @@ void AddPolys()
 	istringstream poly1INstream(Poly1);
 	formatted_Poly1 = polystring_format(poly1INstream);
 	istringstream poly1fINstream(formatted_Poly1);
-	polyINstream >> firstPoly; 
+	poly1fINstream >> firstPoly;
+	cout << firstPoly << endl;
 
 	// Read in Term_list secondPoly 
 	cout << "Enter the second polynomial: " << endl;
 	getline(cin, Poly2);
 	istringstream poly2INstream(Poly2);
-	formatted_Poly2 = polystring_format(polyINstream);
+	formatted_Poly2 = polystring_format(poly2INstream);
 	istringstream poly2fINstream(formatted_Poly2);
-	polyINstream >> secondPoly;
+	poly2fINstream >> secondPoly;
+	cout << secondPoly << endl;
 
 	// Adds the polynomials and prints out the result
 	cout << endl << "Result: ";
