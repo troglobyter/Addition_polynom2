@@ -11,11 +11,11 @@ Term_list::Term_list(const Term_list& other_polynomial){
 }
 
 void Term_list::selection_sort(){
-	++the_itr;
-	if(the_itr == this->end()){
+
+	if(the_itr == --(this->end())){
 		return;
 	}
-	--the_itr;
+
 	Term max_Term = *the_itr;
 	list<Term>::iterator max_itr_pos = the_itr;
 	for(list<Term>::iterator itr2 = ++the_itr; itr2 != this->end(); ++itr2){
