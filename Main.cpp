@@ -61,7 +61,7 @@ string polystring_format(istringstream& INstream){
 		if(isalnum(next_char) || next_char == '^'){
 			if(next_char == '^')
 				last_was_carrot = true;
-			else
+			else if (last_was_carrot && isdigit(next_char))
 				last_was_carrot = false;
 			poly_formatted += next_char;
 		}
@@ -73,6 +73,7 @@ string polystring_format(istringstream& INstream){
 			}
 			else if(!negative_term){
 				negative_term = true;
+				poly_formatted += ' ';
 			}
 			else
 				negative_term = false;
